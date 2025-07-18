@@ -34,47 +34,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   Future<void> _loginWithInstagram(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-    _controller.repeat(reverse: true);
-    try {
-      final clientId = 'INSTAGRAM_CLIENT_ID'; // Kendi client_id'niz ile değiştirin
-      final redirectUri = 'insfollow://oauth/callback'; // Panelde tanımlı URI ile aynı olmalı
-      final authUrl =
-          'https://api.instagram.com/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&scope=user_profile,user_media&response_type=code';
-      final result = await FlutterWebAuth2.authenticate(
-        url: authUrl,
-        callbackUrlScheme: 'insfollow',
-      );
-      final code = Uri.parse(result).queryParameters['code'];
-      if (code != null) {
-        setState(() {
-          _isLoading = false;
-        });
-        _controller.reset();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MainPage()),
-        );
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        _controller.reset();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Instagram girişi başarısız!')),
-        );
-      }
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      _controller.reset();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Instagram girişi iptal edildi veya hata oluştu!')),
-      );
-    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MainPage()),
+    );
   }
 
   @override

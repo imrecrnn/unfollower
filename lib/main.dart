@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
       child: MaterialApp(
-        title: 'InstaTrack',
+        title: 'UnFollower',
         theme: ThemeData(
           primarySwatch: Colors.purple,
           brightness: Brightness.light,
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward();
     Future.delayed(const Duration(milliseconds: 1600), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => LoginScreen(appTitle: 'InstaTrack')),
+        MaterialPageRoute(builder: (_) => LoginScreen(appTitle: 'UnFollower')),
       );
     });
   }
@@ -73,13 +73,56 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ScaleTransition(
-          scale: _animation,
-          child: Image.asset(
-            'assets/images/app_icon.png',
-            width: 100,
-            height: 100,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFF58529), // turuncu
+              Color(0xFFDD2A7B), // pembe
+              Color(0xFF8134AF), // mor
+              Color(0xFF515BD4), // mavi
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ScaleTransition(
+                scale: _animation,
+                child: Image.asset(
+                  'assets/images/app_icon.png',
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              const SizedBox(height: 32),
+              ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return const LinearGradient(
+                    colors: [
+                      Color(0xFFF58529),
+                      Color(0xFFDD2A7B),
+                      Color(0xFF8134AF),
+                      Color(0xFF515BD4),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds);
+                },
+                child: const Text(
+                  'UnFollower',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
